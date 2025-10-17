@@ -1,0 +1,92 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page h-100" dir="rtl">
+  <div class="col-lg-9 col-12">
+    <form nz-form [formGroup]="myForm" class="ant-advanced-search-form d-flex p-2 flex-wrap">
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'documentNumber'">شماره پرونده
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="شماره پرونده" formControlName="documentNumber" [attr.id]="documentNumber" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'buildingCertificateNo'">پروانه ساختمانی
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="پروانه ساختمانی" formControlName="buildingCertificateNo"
+            [attr.id]="buildingCertificateNo" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'responsibleFullName'">هماهنگ کننده
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="هماهنگ کننده" formControlName="responsibleFullName"
+            [attr.id]="responsibleFullName" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'fromCreateDate'">تاریخ ثبت(از)
+        </nz-form-label>
+        <nz-form-control class="date-picker-border">
+          <dp-date-picker formControlName="fromCreateDate" class="px-2" dir="rtl" mode="day" theme="dp-material"
+            placeholder="__-__-____"></dp-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'toCreateDate'">تاریخ ثبت(تا)
+        </nz-form-label>
+        <nz-form-control class="date-picker-border">
+          <dp-date-picker formControlName="toCreateDate" class="px-2" dir="rtl" mode="day" theme="dp-material"
+            placeholder="__-__-____"></dp-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'toCreateDate'">شرکت فروشنده
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="installatinCompanyId" [nzAutocomplete]="auto2"
+            (input)="onSellerInput($event)" placeholder="شرکت فروشنده" />
+          <nz-autocomplete #auto2>
+            <nz-auto-option *ngFor="let item of sellers" [nzValue]="item.id" [nzLabel]="item.name">
+              {{item.name}}
+            </nz-auto-option>
+          </nz-autocomplete>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <hr>
+    <div class="d-flex justify-content-end my-2 px-2">
+      <button type="button" nz-button nzType="primary" (click)="search()"><i nz-icon nzType="search"></i>جستجو</button>
+    </div>
+  </div>
+  <nz-table #nzTable [nzData]="registrations" [nzTotal]="total" [nzFrontPagination]="false" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" (nzQueryParams)="gridChanged($event)" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <!-- nzCustomFilter -->
+        <th class="col-md-2 col-4"># پرونده</th>
+        <th class="col-md-2 col-4">نام مشتری</th>
+        <th class="col-md-3 d-none d-sm-table-cell">شرکت فروشنده</th>
+        <th class="col-md-2 d-none d-sm-table-cell">استان/شهر</th>
+        <th class="col-md-3 col-4">عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.documentNumber }}</td>
+        <td>{{ data.customerFullName ?? data.companyName }}</td>
+        <td class="d-none d-sm-table-cell">{{ data.installatinCompanyName }}</td>
+        <td class="d-none d-sm-table-cell">{{ data.provinceName }} / {{data.cityName}}</td>
+        <td>
+          <button type="button" title="ویرایش" class="mx-1" nz-button nzType="default" nzShape="circle"
+            (click)="edit(data)"><i nz-icon nzType="edit" *ngIf="this.isRoot() || this.isAdmin()"></i></button>
+          <button type="button" title="حذف" class="mx-1" nz-button nzType="primary" nzShape="circle"
+            nz-popconfirm nzPopconfirmTitle="آیا از حذف رکورد جاری مطمن می باشید؟" (nzOnConfirm)="deactive(data)" *ngIf="this.isRoot() || this.isAdmin()">
+            <i nz-icon nzType="delete"></i>
+          </button>
+          <a nz-button nzType="default" nzShape="circle" [routerLink]="['/inspection', data.id]" ><i nz-icon nzType="audit"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

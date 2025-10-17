@@ -1,0 +1,25 @@
+<div class="ant-advanced-form modal-content" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="addcomment">
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+
+                <nz-form-item class="d-flex flex-column mt-4">
+                    <nz-form-label>متن</nz-form-label>
+                    <nz-form-control nzHasFeedback>
+                        <textarea rows="8" nz-textarea formControlName="body" class="novin-input-style"
+                            placeholder="دلیل خود را بنویسید" required></textarea>
+                            <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                            *ngIf="addcomment.controls['body'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+        </div>
+        <div class="col-12 mt-4" style="text-align: left; padding:0.5rem 0 0 1rem;">
+            <button nz-button nzType="primary" *ngIf="router.url === '/users/profile'"  (click)='Add()'>
+                ذخیره
+            </button>
+        </div>
+
+    </form>
+</div>

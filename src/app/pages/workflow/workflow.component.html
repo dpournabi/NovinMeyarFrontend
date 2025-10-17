@@ -1,0 +1,118 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page h-50" style="margin-top: 20px;" dir="rtl">
+  <div class="col-lg-9 col-12">
+    <form nz-form [formGroup]="myForm" class="ant-advanced-search-form d-flex p-2 flex-wrap">
+
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 d-flex justify-content-end" [nzFor]="'documentNumber'" >جستجو براساس
+        </nz-form-label>
+        <nz-form-control [nzSpan]="24">
+          <input nz-input placeholder="شماره پرونده/نام مشتری" formControlName="documentNumber" [attr.id]="documentNumber" (input)="onSearchChangeEvent($event)" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12  d-flex justify-content-end" [nzFor]="'isSeen'">وضعیت بررسی
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="isSeen" class="w-100">
+            <nz-option [nzValue]="null" nzLabel="پیش فرض"></nz-option>
+            <nz-option [nzValue]="true" nzLabel="دیده شده"></nz-option>
+            <nz-option [nzValue]="false" nzLabel="دیده نشده"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12  d-flex justify-content-end" [nzFor]="'fromDate'">تاریخ ثبت(از)
+        </nz-form-label>
+        <nz-form-control class="date-picker-border">
+          <dp-date-picker formControlName="fromDate" class="px-2" dir="rtl" mode="day" theme="dp-material"
+            placeholder="__-__-____"></dp-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12  d-flex justify-content-end" [nzFor]="'toDate'">تاریخ ثبت(تا)
+        </nz-form-label>
+        <nz-form-control class="date-picker-border">
+          <dp-date-picker formControlName="toDate" class="px-2" dir="rtl" mode="day" theme="dp-material"
+            placeholder="__-__-____"></dp-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12  d-flex justify-content-end" [nzFor]="'lastStateID'">وضعیت درخواست
+        </nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="lastStateID" class="w-100">
+            <nz-option [nzValue]="null" nzLabel="پیش فرض"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="تایید بازرس"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="تایید مدیرشعبه"></nz-option>
+            <nz-option [nzValue]="4" nzLabel="رد مدیرشعبه"></nz-option>
+            <nz-option [nzValue]="8" nzLabel="تایید مدیرفنی"></nz-option>
+            <nz-option [nzValue]="16" nzLabel="رد مدیرفنی"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+        <nz-form-label class="col-md-4 col-12 d-flex justify-content-end" [nzFor]="'toCreateDate'">شرکت فروشنده
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="installationCompanyId" [nzAutocomplete]="auto2"
+            (input)="onSellerInput($event)" placeholder="شرکت فروشنده" />
+          <nz-autocomplete #auto2>
+            <nz-auto-option *ngFor="let item of sellers" [nzValue]="item.id" [nzLabel]="item.name">
+              {{item.name}}
+            </nz-auto-option>
+          </nz-autocomplete>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <hr>
+    <div class="d-flex justify-content-end my-2 px-2">
+      <button type="button" nz-button nzType="primary" (click)="search()"><i nz-icon nzType="search"></i>جستجو</button>
+    </div>
+  </div>
+  <nz-table #nzTable [nzData]="registrations" [nzTotal]="total" [nzFrontPagination]="false" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" (nzQueryParams)="gridChanged($event)" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th class="col-md-2 d-none d-sm-table-cell">شماره پرونده</th>
+        <th class="col-md-2 d-none d-sm-table-cell">تاریخ ثبت</th>
+        <th class="col-md-2 d-none d-sm-table-cell">وضعیت درخواست</th>
+        <th class="col-md-2 d-none d-sm-table-cell">وضعیت بررسی</th>
+        <th class="col-md-2 d-none d-sm-table-cell">فلوی درخواست</th>
+        <th class="col-md-2 d-none d-sm-table-cell">نام شعبه</th>
+        <th class="col-md-2 d-none d-sm-table-cell">نام مشتری</th>
+        <th class="col-md-2 d-none d-sm-table-cell">شرکت فروشنده</th>
+        <th class="col-md-3 col-4">عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data" [ngClass]="[data.isSeenValue==false ? 'bg-not-seen-row': '']">
+        <td>{{ data.requestTitle}}</td>
+        <!-- <td class="d-none d-sm-table-cell">{{ data.installatinCompanyName }}</td> -->
+        <td class="d-none d-sm-table-cell">{{data.createDate}}</td>
+        <td>{{data.lastState}}</td>
+        <td>{{data.isSeen}}</td>
+        <td>{{data.states}}</td>
+        <td>{{data.branchName}}</td>
+        <td>{{data.customerFullName}}</td>
+        <td>{{data.installationCompanyName}}</td>
+        <td>
+          <button type="button" title="بازنشانی وضعیت" class="mx-1" nz-button nzType="default" nzShape="circle" *ngIf="data.lastStateValue==8 && (isRoot() || isAdmin())"
+            nz-popconfirm nzPopconfirmTitle="آیا از بازنشانی وضعیت پرونده شماره {{data.requestTitle}} مطمن می باشید؟" (nzOnConfirm)="undoRequestState(data)">
+            <i nz-icon nzType="undo"></i>
+          </button>
+          <button type="button" class="mx-1" nz-button nzType="default" nzShape="circle"
+            (click)="edit(data)">
+            <i *ngIf="data.lastStateValue!=8" nz-icon nzType="edit"></i>
+            <i *ngIf="data.lastStateValue==8" nz-icon nzType="eye"></i>
+          </button>
+          <a nz-button nzType="default" nzShape="circle" [routerLink]="['/inspection', data.sourceTableKey]" *ngIf="data.lastStateValue!=8"><i nz-icon
+              nzType="audit"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

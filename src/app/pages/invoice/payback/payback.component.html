@@ -1,0 +1,21 @@
+<div class="container p-5 shadow-lg" id="payback">
+    <div class="text-center logo">
+        <img src=" /assets/images/logo.png">
+    </div>
+    <div class="icon d-flex">
+        <span class="one" *ngIf="paymentResult.succeed" nz-icon nzType="check" nzTheme="outline"></span>
+        <span class="two" *ngIf="!paymentResult.succeed" nz-icon nzType="close" nzTheme="outline"></span>
+    </div>
+    <div class="content mt-4 pt-4 text-xxl-center text-center" *ngIf="checkPayment">
+        <h5>{{paymentResult.message}}</h5>
+        <h6>شماره پیگیری :{{paymentResult.data.invoiceNumber}}</h6>
+    </div>
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" disabled *ngIf="!checkPayment">
+            <span class="spinner-border spinner-border-sm"></span>
+            لطفا منتظر بمانید...
+          </button>
+        <button id="btn" class="btn btn-dark line-height-1" type="button" *ngIf="checkPayment">بازگشت به سامانه</button>
+    </div>
+    
+</div>

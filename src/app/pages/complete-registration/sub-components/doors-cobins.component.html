@@ -1,0 +1,155 @@
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="doorsCobinsForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="درب طبقه">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-type-1" value="0" />
+                        <label class="" for="door-type-1">لولایی</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-type-2" value="1" />
+                        <label class="" for="door-type-2">اتوماتیک</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عرض درب ها">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جهت باز شدن درب طبقات">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="opening-side-R" name="opening-side" value="R" />
+                        <label class="" for="opening-side-R">راست(R)</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="opening-side-C" name="opening-side" value="C" />
+                        <label class="" for="opening-side-C">مرکزی(C)</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="opening-side-L" name="opening-side" value="L" />
+                        <label class="" for="opening-side-L">چپ(L)</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع درب کابین">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cobin-door-type-1" name="cobin-door-type" value="R" />
+                        <label class="" for="cobin-door-type-1">تلسکوپی</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cobin-door-type-2" name="cobin-door-type" value="C" />
+                        <label class="" for="cobin-door-type-2">سانترال</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cobin-door-type-3" name="cobin-door-type" value="L" />
+                        <label class="" for="cobin-door-type-3">اتوبوسی</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تعداد لته">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تعداد ورودی های کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع درب کابین(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عرض کابین(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عمق کابین(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع کلی کابین(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جنس دیوار کابین">
+                <select nz-input class="ant-input bg-transparent border-0 text-center">
+                    <option value="">---</option>
+                    <option value="1">فرمیکا</option>
+                    <option value="2">MDF</option>
+                    <option value="3">شیشه</option>
+                    <option value="4">استیل</option>
+                </select>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جنس کف کابین">
+                <select class="ant-input bg-transparent border-0 text-center">
+                    <option value="">---</option>
+                    <option value="1">فلز</option>
+                    <option value="2">شیشه</option>
+                    <option value="3">سنگ</option>
+                </select>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جرم تقریبی کابین(کیلوگرم)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع سینی کابین(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="light-sensor" />
+                        <label class="" for="light-sensor">حسگر نوری درب کابین</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="car-lock-door" />
+                        <label class="" for="car-lock-door">سیستم قفل مکانیکی درب کابین</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عمق آستانه درب کابین-DD">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عمق درب کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله عمودی بین کفشک های کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز کابین C نسبت به ریل راهنما در جهت X(Xc)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز کابین C نسبت به ریل راهنما در جهت Y(Yc)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز جرم کابین P نسبت به ریل راهنما در جهت X(Xp)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز جرم کابین P نسبت به ریل راهنما در جهت Y(Yp)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز آویز S نسبت به ریل راهنما در جهت X(Xs)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مرکز آویز S نسبت به ریل راهنما در جهت Y(Ys)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله درب کابین نسبت به ریل راهنما در جهت X(Xi)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله درب کابین نسبت به ریل راهنما در جهت Y(Yi)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+        </nz-descriptions>
+    </form>
+</ng-template>

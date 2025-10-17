@@ -1,0 +1,57 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page" dir="rtl">
+    <div class="col-12">
+        <div class="btn-bar nav-dark">
+              <a class="btn btn-glass btn-success" nz-popconfirm nzPopconfirmTitle="آیا از ثبت درخواست بازرسی مطمن می باشید؟" (nzOnConfirm)="newInspection()">
+                <i class="fa fa-fw fa-lg fa-plus"></i> ثبت درخواست بازرسی
+              </a>
+        </div>
+    </div>
+
+    <nz-table #nzTable [nzData]="inspections" [nzTotal]="total" [nzFrontPagination]="false" [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex" class="table-responsive" (nzQueryParams)="gridChanged($event)" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th class="col-1">نوع بازرسی</th>
+                <th class="col-1 d-none d-sm-table-cell">تعداد توقف</th>
+                <th class="col-1">مرتبه بازرسی</th>
+                <th class="col-2">مبلغ کل</th>
+                <th class="col-2">تاریخ بازرسی</th>
+                <th class="col-2 d-none d-sm-table-cell">وضعیت پرداخت</th>
+                <th class="col-2 d-none d-sm-table-cell">تاریخ پرداخت</th>
+                <th class="col-3">عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nzTable.data">
+                <td>
+                    {{data.inspectionType}}
+                </td>
+                <td class="d-none d-sm-table-cell">
+                    {{data.stopCount}}
+                </td>
+                <td>
+                    {{data.row}}
+                </td>
+                <td>
+                   <b> {{data.amount | number}} ريال</b>
+                </td>
+                <td>
+                    {{ getShamsiDate(data.inspectionDate) }}-{{data.inspectionTime}}
+                </td>
+                <td>
+                    {{ data.paymentId==null ? 'پرداخت نشده' : 'پرداخت شده'}}
+                </td>
+                <td>
+                    {{ getShamsiDate(data.paymentDate) }}
+                </td>
+                <td>
+                    <a title="حذف" class="mx-1" *ngIf="data.paymentId==null" nz-popconfirm nzPopconfirmTitle="آیا از حذف رکورد جاری مطمن می باشید؟" (nzOnConfirm)="deactive(data)">
+                        <i nz-icon nzType="delete" style="color: lightcoral;"></i>
+                    </a>
+                    <a title="پیش فاکتور" *ngIf="data.paymentId==null" href="/display-invoice/{{data.tag}}" class="mx-1"><i nz-icon style="color: lightgreen;">پیش فاکتور</i></a>
+                    <a title="ارسال لینک پرداخت" class="mx-1" (click)="displayPaymentLinkModal(data.responsibleCell, data.id)"><i nz-icon style="color: lightgreen;">ارسال لینک پرداخت</i></a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

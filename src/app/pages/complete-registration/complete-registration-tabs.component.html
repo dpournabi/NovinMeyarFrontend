@@ -1,0 +1,23 @@
+<header-info [fastInfo]="currentFastInfo"></header-info>
+<nz-tabset class="px-2" [nzSelectedIndex]="currentIndex" [nzTabPosition]="'top'">
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name" [nzDisabled]="tab.disabled">
+    <technical-info #technicalInfo *ngIf="tab.index == 0" [fastInfo]="currentFastInfo"></technical-info>
+    <motealeghat #motealeghat *ngIf="tab.index == 1" [fastInfo]="currentFastInfo"></motealeghat>
+    <doors-cobins #doorscobins *ngIf="tab.index == 2" [fastInfo]="currentFastInfo"></doors-cobins>
+    <safety #safety *ngIf="tab.index == 3"></safety>
+    <niroo-mohareke #niroomohareke *ngIf="tab.index == 4"></niroo-mohareke>
+    <other #other *ngIf="tab.index == 5"></other>
+  </nz-tab>
+</nz-tabset>
+<section class="d-flex flex-wrap justify-content-center mt-1 mb-2">
+  <div class="mb-1">
+    <button nz-button nzType="link" [disabled]="currentIndex <= 0" class="mx-1 border fix-width-90"
+        (click)="goPrev()"><i nz-icon nzType="step-forward"></i>قبلی</button>
+    <button nz-button nzType="link" [disabled]="currentIndex >= 5" class="mx-1 border fix-width-90"
+        (click)="goNext()">بعدی<i nz-icon nzType="step-backward"></i></button>
+  </div>
+  <div class="">
+    <button nz-button nzType="primary" class="mx-1 fix-width-90" (click)="save()">ذخیره</button>
+    <button nz-button nzType="default" class="mx-1 fix-width-90">برگشت</button>
+  </div>
+</section>

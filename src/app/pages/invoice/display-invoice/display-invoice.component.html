@@ -1,0 +1,59 @@
+<div id="display" class="shadow">
+    <div id="head" dir="rtl">
+       <h3 class="text-dark text-center font-bold">پیش فاکتور</h3>
+       <div class="d-flex justify-content-lg-between">
+            <div>
+                <h6>نام مشتری : {{invoice?.responsibleFullName}}</h6>
+                <h6>
+                    شماره پرونده : {{invoice?.documentNumber}}
+                </h6>
+                <h6>
+                    نوبت بازرسی : {{invoice?.row}}
+                </h6>
+                
+            </div>
+            <div>
+                <h6>
+                    تاریخ : {{invoice?.date}}
+                </h6>
+                <h6>تلفن : {{invoice?.responsibleCell}}</h6>
+                
+            </div>
+        </div>
+        <div class="row">
+            <h6>آدرس : {{invoice?.address}}</h6>
+        </div>
+    </div>
+     
+    <div>
+        <table id="table" class="table table-bordered table-responsive" dir="rtl">
+              <tbody>
+                <tr>
+                    <th>تعرفه بازرسی</th>
+                    <td>{{invoice?.amount}} ریال</td>
+                </tr>
+                <tr>
+                    <th>هزینه ایاب و ذهاب</th>
+                    <td>{{invoice?.travelExpenses}} ریال</td>
+                </tr>
+                <tr>
+                    <th> مالیات بر ارزش افزوده (9 %)</th>
+                    <td>{{invoice?.tax}} ریال</td>
+                </tr>
+                <tr>
+                    <th>مازاد بر توقف</th>
+                    <td>{{invoice?.additionalStopCount}}</td>
+                    <th>مبلغ</th>
+                    <td>{{invoice?.additionalPayment}} ریال</td>
+                </tr>
+                <tr>
+                    <th>مبلغ قابل پرداخت</th>
+                    <td>{{invoice?.totalPayment}} ریال</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button id="prd" class="btn btn-secondary" nz-button nzType="primary" (click)="goToGateway()" [nzLoading]="loaded">پرداخت</button>
+    </div>
+</div>

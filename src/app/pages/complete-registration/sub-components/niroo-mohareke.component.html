@@ -1,0 +1,159 @@
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="nirooForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 3, xl: 3, lg: 1, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="نوع موتور">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-1" value="0" name="motor-type" />
+                        <label class="" for="motor-type-1">گیربوکس دار</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-2" value="1" name="motor-type" />
+                        <label class="" for="motor-type-2">بدون گیربوکس</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>     
+            <nz-descriptions-item nzTitle="نام سازنده(موتور)">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مدل یا تیپ(موتور)">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="شماره سريال(موتور)">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="توان خروجی(موتور-کیلووات)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="دورتُند(دقیقه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="دورکُند(دقیقه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جریان نامی(آمپر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="جریان راه اندازی(آمپر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نام سازنده گیربوکس">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نسبت تبدیل گیربوکس">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تعداد فلکه معکوس(عدد)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item> 
+            <nz-descriptions-item nzTitle="نوع کفشک راهنما">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-1" value="0" name="motor-type" />
+                        <label class="" for="motor-type-1">لغظشی</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-2" value="1" name="motor-type" />
+                        <label class="" for="motor-type-2">غلطکی</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تعداد شیارهای فلکه رانِش موتور">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع شیارهای فلکه رانِش">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-1" value="0" name="motor-type" />
+                        <label class="" for="motor-type-1">V</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-2" value="1" name="motor-type" />
+                        <label class="" for="motor-type-2">U</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="زیر برش شیار فلکه رانش">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-1" value="0" name="motor-type" />
+                        <label class="" for="motor-type-1">دارد</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="motor-type-2" value="1" name="motor-type" />
+                        <label class="" for="motor-type-2">ندارد</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="زاویه زیربرش(درجه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>  
+            <nz-descriptions-item nzTitle="زاویه شیار(درجه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>  
+            <nz-descriptions-item nzTitle="قطر فلکه رانش موتور(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>   
+            <nz-descriptions-item nzTitle="فاصله عمودی(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>   
+            <nz-descriptions-item nzTitle="فاصله افقی(بکسل تا بکسل-سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="زاویه پیچش طناب روی فلکه رانِش(درجه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item> 
+            <nz-descriptions-item nzTitle="ضریب بکسل بندی">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item> 
+            <nz-descriptions-item nzTitle="فلکه موتورخانه سمت کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="تعداد" just-number focus-select />  
+                <hr class="m-0"/>              
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="قطر" just-number focus-select />
+            </nz-descriptions-item>            
+            <nz-descriptions-item nzTitle="فلکه روی کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="تعداد" just-number focus-select />  
+                <hr class="m-0"/>              
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="قطر" just-number focus-select />
+            </nz-descriptions-item>       
+            <nz-descriptions-item nzTitle="فلکه روی قاب">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="تعداد" just-number focus-select />  
+                <hr class="m-0"/>              
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" placeholder="قطر" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+            <nz-descriptions-item nzTitle="">
+                <div>
+                    <img class="img-fluid" src="/assets/images/image1.png" alt="زاویه آلفا">
+                </div>
+                <hr class="m-0"/>
+                <div>
+                    <label for="alpha">زاویه پیچش(&#x3B1;)-درجه</label>
+                    <input nz-input class="bg-transparent border-0 text-center" id="alpha" dir="ltr" just-number focus-select /> 
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+            <nz-descriptions-item nzTitle="توضیحات زاویه آلفا(فلکه معکوس)">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item> 
+            <nz-descriptions-item nzTitle="خواب سیم بکسل روی فلکه کشش">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select />
+            </nz-descriptions-item> 
+        </nz-descriptions>
+    </form>
+</ng-template>

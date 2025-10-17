@@ -1,0 +1,202 @@
+<div class="parent-box-login d-flex h-100 overflow-auto" nz-row></div>
+
+    <div class="h-100 forms-login d-flex align-items-center overflow-auto" nz-row>
+
+        <div class="fit-height flex w-100" *ngIf="_login && !_Register && !_Code ">
+
+         
+            <div class="user_icon mb-3">
+                <hr>
+                <i nz-icon nzType="user" nzTheme="outline"></i>
+                <hr>
+            </div>
+        
+
+            <nz-tabset nzType="card" [(nzSelectedIndex)]="selectedIndex">
+
+                <nz-tab [nzTitle]="'ورود'">
+
+                    <form class="w-100" nz-form [formGroup]="loginFormGroup" (ngSubmit)="login()">
+
+                        <label>نام کاربری</label>
+                        <nz-form-item>
+                            <nz-form-control [nzErrorTip]="userLoginErro">
+                                <nz-input-group nzPrefixIcon="user">
+                                    <input autocomplete="off" type="text" pattern="^9([0-9][0-9])-?[0-9]{3}-?[0-9]{4}" maxlength="10" class="user-name-direction" nz-input formControlName="username" placeholder="9128888888" />
+                                    <label style="font-size:13px !important;" dir="ltr">+98</label>
+                                </nz-input-group>
+                                <ng-template #userLoginErro let-control>
+                                    <ng-container *ngIf="control.hasError('required')">
+                                        نام کاربری الزامی است.
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="رمز عبور خود را وارد کنید">
+                                <nz-input-group nzPrefixIcon="lock">
+                                    <input autocomplete="off" type="password" class="user-name-direction" nz-input formControlName="password" placeholder="رمز عبور" maxlength="20" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <button dir="rtl" nz-button class="login-form-button mb-3" [nzType]="'primary'"
+                            [nzLoading]="loginLoading">
+                            ورود
+                        </button>
+
+                        <div class="col-12 col-md-6 m-auto text-center">
+                         <p>
+                            <a dir="rtl"   class="login-form-button app_link mb-3" 
+                            >
+                           فراموشی کلمه عبور              
+                        </a>
+                         </p>
+                        </div>
+
+                        <div class="col-12 col-md-6 m-auto text-center">
+                            حساب کاربری ندارید ؟
+
+                            <a dir="rtl"  class="login-form-button app_link mb-3" 
+                            (click)="changeTosignIn('signIn')">
+                            <span class="app_regist pr-2 text-bold">
+                                ثبت نام
+
+                            </span>
+                        </a>
+                        </div>
+               
+
+                    </form>
+
+                </nz-tab>
+           
+            </nz-tabset>
+
+        </div>
+
+        <div class="fit-height flex w-100" *ngIf="!_login && _Register && !_Code  ">
+
+            <nz-tabset nzType="card" [(nzSelectedIndex)]="selectedIndex">
+
+                <nz-tab [nzTitle]="'ثبت نام'">
+
+                    <form class="w-100" nz-form [formGroup]="signUpFormGroup" (ngSubmit)="SignUp()" autocomplete="off">
+                        <label>نام کاربری</label>
+                        <nz-form-item>
+                            <nz-form-control [nzErrorTip]="userLoginErro">
+                                <nz-input-group nzPrefixIcon="user">
+                                    <input  type="text" pattern="^9([0-9][0-9])-?[0-9]{3}-?[0-9]{4}" maxlength="10" class="user-name-direction" nz-input formControlName="username" placeholder="9128888888" />
+                                    <label style="font-size:13px !important;" dir="ltr">+98</label>
+                                </nz-input-group>
+                                <ng-template #userLoginErro let-control>
+                                    <ng-container *ngIf="control.hasError('required')">
+                                        نام کاربری الزامی است.
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="نام شرکت خود را وارد کنید">
+                                <nz-input-group nzPrefixIcon="shop">
+                                    <input type="text" nz-input formControlName="companyName" placeholder="نام شرکت" maxlength="50" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="شناسه ملی  شرکت را وارد کنید">
+                                <nz-input-group nzPrefixIcon="flag">
+                                    <input type="text" pattern="^[0-9]{11}$" nz-input formControlName="nationalCode" maxlength="11" placeholder="شناسه ملی" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item autocomplete="off">
+                            <nz-form-control nzErrorTip="شماره ثبت  خود را وارد کنید">
+                                <nz-input-group nzPrefixIcon="build">
+                                    <input type="text" pattern="^[0-9]*$" autocomplete="off" nz-input formControlName="registerNo" maxlength="7" placeholder="شماره ثبت" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <label>کلمه عبور باید حداقل هشت حرف شامل حرف بزرگ, حرف کوچک و عدد باشد</label>
+                        <nz-form-item>
+                            
+                            <nz-form-control nzErrorTip="رمز عبور خود را وارد کنید">
+                                <nz-input-group nzPrefixIcon="lock">
+                                    <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})" nz-input formControlName="password" placeholder="رمز عبور" maxlength="20" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <label>تایید کلمه عبور باید حداقل هشت حرف شامل حرف بزرگ, حرف کوچک و عدد باشد</label>
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="تکرار رمز عبور را وارد کنید ">
+                                <nz-input-group nzPrefixIcon="lock">
+                                    <input type="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})" nz-input formControlName="confirmationPassword" placeholder=" تکرار رمز عبور" maxlength="20" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+        
+                        <button dir="rtl" nz-button class="login-form-button mb-3" [nzType]="'primary'"
+                            [nzLoading]="loginLoading" >
+                            ثبت نام
+                        </button>
+
+
+                        <div class="col-12 col-md-6 m-auto text-center">
+                                     قبلا ثبت نام کردم !
+                            <a dir="rtl"  class="login-form-button  mb-3" 
+                            (click)="changeTosignIn('Login')">
+                            <span class="app_regist pr-2 text-bold">
+                                ورود
+
+                            </span>
+                        </a>
+                        </div>
+              
+
+                    </form>
+
+                </nz-tab>
+           
+            </nz-tabset>
+
+        </div>
+
+        <div class="fit-height flex w-100" *ngIf="_Code && !_login && !_Register">
+
+            <nz-tabset nzType="card" [(nzSelectedIndex)]="selectedIndex">
+
+                <nz-tab [nzTitle]="'کد تاییدیه'">
+
+                    <form class="w-100" nz-form [formGroup]="verify_form" (ngSubmit)="Verify_form()">
+
+                        <nz-form-item>
+                            <nz-form-control nzErrorTip="کد تایید را وارد کنید">
+                               
+                                <nz-input-group nzPrefixIcon="ShakeOutlined ">
+                                    <input type="text" nz-input formControlName="plainCode" placeholder="کد تایید" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+          
+        
+                        <button dir="rtl" nz-button class="login-form-button mb-3" [nzType]="'primary'"
+                            [nzLoading]="loginLoading" >
+                            ارسال
+                        </button>
+                        <!-- <button dir="rtl" nz-button class="login-form-button mb-3" [nzType]="'dashed'"
+                        [nzLoading]="loginLoading" (click)="changeTosignIn('Login')">
+                        ارسال مجدد
+                    </button> -->
+
+                    </form>
+
+                </nz-tab>
+           
+            </nz-tabset>
+
+        </div>
+
+    </div>
+

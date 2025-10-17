@@ -1,0 +1,48 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page h-50" style="margin-top: 20px;" dir="rtl">
+    <div class="col-lg-9 col-12">
+       <form nz-form [formGroup]="myForm" class="ant-advanced-search-form d-flex p-2 flex-wrap">
+        <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+          <nz-form-label class="col-md-4 col-12 d-flex justify-content-end" [nzFor]="'userName'">جستجو براساس
+          </nz-form-label>
+          <nz-form-control [nzSpan]="24">
+            <input nz-input placeholder="نام کاربر/نام/ نام خانوادگی/نام نقش" (input)="onSearchChangeEvent($event)" formControlName="userName" [attr.id]="userName" />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <hr>
+      <div class="d-flex justify-content-end my-2 px-2">
+        <button type="button" nz-button nzType="primary" (click)="search()"><i nz-icon nzType="search"></i>جستجو</button>
+      </div>
+    </div>
+    <nz-table #nzTable [nzData]="users" [nzTotal]="total" [nzFrontPagination]="false" (nzQueryParams)="gridChanged($event)" nzTableLayout="fixed">
+      <thead>
+        <tr>
+          <th class="col-md-2 d-none d-sm-table-cell">نام کاربر</th>
+          <th class="col-md-2 d-none d-sm-table-cell">نام</th>
+          <th class="col-md-2 d-none d-sm-table-cell">نام خانوادگی</th>
+          <th class="col-md-2 d-none d-sm-table-cell">نام نقش</th>
+          <th class="col-md-3 col-4">عملیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of nzTable.data" [ngClass]="[data.roleName=='Client' ? '' : 'bg-not-seen-row']">
+          <td>{{ data.userName}}</td>
+          <td>{{ data.firstName}}</td>
+          <td>{{ data.lastName}}</td>
+          <td>{{ data.localRoleName}}</td>
+          <td>
+            <button type="button" title="ویرایش" class="mx-1" nz-button nzType="default" nzShape="circle"
+              (click)="edit(data)"><i nz-icon nzType="edit"></i>
+            </button>
+            <button type="button" title="فعالسازی کاربر" class="mx-1" nz-button nzType="default" nzShape="circle"
+                (click)="unlockUser(data)"><i nz-icon nzType="unlock"></i>
+             </button>
+            <button type="button" title="بازنشانی رمز عبور به Aa@123456" class="mx-1" nz-button nzType="default" nzShape="circle" 
+              nz-popconfirm nzPopconfirmTitle="آیا از بازنشانی رمز عبور کاربر به رمز عبور پیش فرض {{data.userName}} مطمن می باشید؟" (nzOnConfirm)="resetPassword(data)">
+              <i nz-icon nzType="undo"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

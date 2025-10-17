@@ -1,0 +1,25 @@
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="otherForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="">
+                <div>
+                    <img class="img-fluid" src="/assets/images/image2.png" alt="فرمول ها">
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="">
+                <div>
+                    <img class="img-fluid" src="/assets/images/image3.png" alt="نقشه فلکه ها">
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سایر توضیحات" [nzSpan]="2">
+                <textarea nz-input class="bg-transparent border-0" rows="10" focus-select></textarea>
+            </nz-descriptions-item>
+        </nz-descriptions>
+    </form>
+</ng-template>

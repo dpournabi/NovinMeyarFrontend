@@ -1,0 +1,185 @@
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="safetyForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 3, xl: 3, lg: 1, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="جنس ضربه گیر کابین">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cabin-anti-shock-1" value="0" name="cabin-anti-shock" />
+                        <label class="" for="cabin-anti-shock-1">پلی اورتان</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cabin-anti-shock-2" value="1" name="cabin-anti-shock" />
+                        <label class="" for="cabin-anti-shock-2">هیدرولیک</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>            
+            <nz-descriptions-item nzTitle="نام سازنده(ضربه گیر کابین)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سريال(ضربه گیر کابین)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ظرفیت(ضربه گیر کابین-کیلوگرم)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع ضربه گیر کابین">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cabin-instant-movable-1" value="0" name="cabin-instant-movable" />
+                        <label class="" for="cabin-instant-movable-1">ثابت</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="cabin-instant-movable-2" value="1" name="cabin-instant-movable" />
+                        <label class="" for="cabin-instant-movable-2">متحرک</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle="جنس ضربه گیر وزنه">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-anti-shock-1" value="0" name="weight-anti-shock" />
+                        <label class="" for="weight-anti-shock-1">پلی اورتان</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-anti-shock-2" value="1" name="weight-anti-shock" />
+                        <label class="" for="weight-anti-shock-2">هیدرولیک</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>            
+            <nz-descriptions-item nzTitle="نام سازنده(ضربه گیر وزنه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سريال(ضربه گیر وزنه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ظرفیت(ضربه گیر وزنه-کیلوگرم)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع ضربه گیر وزنه">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-instant-movable-1" value="0" name="weight-instant-movable" />
+                        <label class="" for="weight-instant-movable-1">ثابت</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-instant-movable-2" value="1" name="weight-instant-movable" />
+                        <label class="" for="weight-instant-movable-2">متحرک</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle="نام سازنده(ترمز ایمنی)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سريال(ترمز ایمنی)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ظرفیت(ترمز ایمنی-کیلوگرم)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="حداکثر سرعت مجاز(ترمز ایمنی-متربرثانیه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تیغه ریل(ترمز ایمنی)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="موقعیت ترمز ایمنی">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="location-type-1" value="0" name="location-type" />
+                        <label class="" for="location-type-1">بالا</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="location-type-2" value="1" name="location-type" />
+                        <label class="" for="location-type-2">پایین</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle="نام سازنده(گاورنر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سريال(گاورنر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سرعت درگیری(گاورنر-متربرثانیه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع گاورنر">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="governer-type-1" value="0" name="governer-type" />
+                        <label class="" for="governer-type-1">دوطرفه</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="governer-type-2" value="1" name="governer-type" />
+                        <label class="" for="governer-type-2">N/A</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle="کابل تراول کابین">
+                <div class="d-flex flex-row align-items-center">
+                    <input nz-input placeholder="تعداد کابل" class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+                    <span>*</span>
+                    <input nz-input placeholder="تعداد رشته" class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+                    <span>*</span>
+                    <input nz-input placeholder="ضخامت رشته" class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نام سازنده(تابلو فرمان)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="شماره سريال(تابلو فرمان)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="governer-type-1" value="0" name="governer-type" />
+                        <label class="" for="governer-type-1">وسیله تغییر صرعت پیوسته</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="governer-type-2" value="1" name="governer-type" />
+                        <label class="" for="governer-type-2">سیستم نجات اضطراری</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+            <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+
+            <nz-descriptions-item nzTitle="نام و سريال قفل ها">
+
+            </nz-descriptions-item>
+        </nz-descriptions>
+    </form>
+</ng-template>

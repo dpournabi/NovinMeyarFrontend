@@ -1,0 +1,269 @@
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="motealeghatForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="عرض چاه">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="shaftWidth"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عمق چاه">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="shaftDepth"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="عمق چاهک">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="depthOfPit"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع سکوی کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="cabinStandHeight"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع سکوی وزنه">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr"
+                    formControlName="counterWeightStandHeight" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله دو سکو">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="standsDistance"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله وزنه تا سکو">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr"
+                    formControlName="counterWeightToStandDistance" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله ریل کابین">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr"
+                    formControlName="cabinRailDistance" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="فاصله ریل وزنه">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr"
+                    formControlName="counterWeightRailDistance" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع و تعداد ریل">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex">
+                        <div class="align-items-center d-flex flex-grow-1 flex-row ms-2">
+                            <label class="no-break">کابینT</label>
+                            <input nz-input class="bg-transparent border-0 text-center ms-1" dir="ltr" just-number
+                                focus-select type="text" style="max-width: 8em;" />
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="align-items-center d-flex flex-grow-1 flex-row ms-2">
+                            <label class="no-break">وزنهT</label>
+                            <input nz-input class="bg-transparent border-0 text-center ms-1" dir="ltr" just-number
+                                focus-select type="text" style="max-width: 8em;" />
+                        </div>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="وزنه ها">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-side-1" name="weight-side" value="0"
+                            (click)="onLocationTypeChange($event)" />
+                        <label class="" for="weight-side-1">راست</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-side-2" name="weight-side" value="1"
+                            (click)="onLocationTypeChange($event)" />
+                        <label class="" for="weight-side-2">پشت</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="weight-side-3" name="weight-side" value="2"
+                            (click)="onLocationTypeChange($event)" />
+                        <label class="" for="weight-side-3">چپ</label>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label class="no-break">بتن:</label>
+                        <input nz-input type-id="1" class="bg-transparent border-0 text-center ms-1" dir="ltr"
+                            just-number focus-select type="text" style="max-width: 8em;" (focus)="onWeightTypeFocus($event)" />
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label class="no-break">چدن:</label>
+                        <input nz-input type-id="2" class="bg-transparent border-0 text-center ms-1" dir="ltr"
+                            just-number focus-select type="text" style="max-width: 8em;" (focus)="onWeightTypeFocus($event)" />
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label class="no-break">گالوانیزه:</label>
+                        <input nz-input type-id="3" class="bg-transparent border-0 text-center ms-1" dir="ltr"
+                            just-number focus-select type="text" style="max-width: 8em;" (focus)="onWeightTypeFocus($event)" />
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="حداکثر فاصله براکت ها(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="bracketDistance"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ارتفاع کل چاه(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="shaftHeight"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="بالاسری-overhead(سانتی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="overHead"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طول ریل کابین(متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="railLength"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نوع طناب فولادی">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="railLength"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طناب های فولادی">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex">
+                        <div class="align-items-center d-flex flex-grow-1 flex-row ms-2">
+                            <label class="no-break">قطر</label>
+                            <input nz-input class="bg-transparent border-0 text-center ms-1" dir="ltr" just-number
+                                focus-select type="text" formControlName="cableDiameter" style="max-width: 8em;" />
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="align-items-center d-flex flex-grow-1 flex-row ms-2">
+                            <label class="no-break">تعداد</label>
+                            <input nz-input class="bg-transparent border-0 text-center ms-1" dir="ltr" just-number
+                                focus-select type="text" formControlName="ropeCount" style="max-width: 8em;" />
+                        </div>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="حداقل فاصله کابین با وزنه(میلی متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr"
+                    formControlName="cabinToCounterWeightDistance" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طول معلق طناب فولادی(متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="suspendedLength"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طناب جبران(رشته)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="incpector-door-in-pit" formControlName="hasIncpectorDoorInPit"/>
+                        <label class="" for="incpector-door-in-pit">درب بازرسی در چاهک</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="half-close-shaft" formControlName="isHalfCloseShaft"/>
+                        <label class="" for="half-close-shaft">چاه نیمه پوشیده</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="share-shaft" formControlName="hasShareShaft"/>
+                        <label class="" for="share-shaft">چاه مشترک</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="emergency-door" formControlName="hasEmergencyDoor"/>
+                        <label class="" for="emergency-door">درب اضطراری</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="visit-from-shaft" formControlName="hasVisitFromShaft"/>
+                        <label class="" for="visit-from-shaft">دریچه بازدید از چاه</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ابعاد ریل راهنما کابین">
+                <div dir="ltr" class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label for="input-k">k:</label>
+                        <input nz-input just-number focus-select class="bg-transparent border-0 text-center ms-1" 
+                            type="text" id="input-k" style="max-width: 6em;" formControlName="k"/>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label for="input-h1">h1:</label>
+                        <input nz-input just-number focus-select class="bg-transparent border-0 text-center ms-1" 
+                            type="text" id="input-h1" style="max-width: 6em;" formControlName="h1"/>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <label for="input-b1">b1:</label>
+                        <input nz-input just-number focus-select class="bg-transparent border-0 text-center ms-1" 
+                            type="text" id="input-b1" style="max-width: 6em;" formControlName="b1"/>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نحوه نصب ریل راهنما">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="rail-installation-type-0" value="0" (click)="onRailInstallationType($event)"/>
+                        <label class="" for="rail-installation-type-0">مرکزی</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="rail-installation-type-1" value="1" (click)="onRailInstallationType($event)"/>
+                        <label class="" for="rail-installation-type-1">لیفتراکی</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="rail-installation-type-2" value="2" (click)="onRailInstallationType($event)"/>
+                        <label class="" for="rail-installation-type-2">قطری</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ضربه گیرها">
+                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="anti-shock-1" value="0"/>
+                        <label class="" for="anti-shock-1">پلی اورتان</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="checkbox" id="anti-shock-2" value="1"/>
+                        <label class="" for="anti-shock-2">هیدرولیکی</label>
+                    </div>
+                </div>
+            </nz-descriptions-item>
+        </nz-descriptions>
+    </form>
+</ng-template>

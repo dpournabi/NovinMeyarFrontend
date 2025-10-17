@@ -1,0 +1,342 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page" dir="rtl">
+    <nz-card class="col-12">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+            <nz-card-meta [nzDescription]="description"></nz-card-meta>
+        </nz-skeleton>
+    </nz-card>
+
+    <nz-card class="col-12">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+            <nz-card-meta [nzDescription]="buildingInfo"></nz-card-meta>
+        </nz-skeleton>
+    </nz-card>
+
+    <nz-card class="col-12">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+            <nz-card-meta [nzDescription]="other"></nz-card-meta>
+        </nz-skeleton>
+    </nz-card>
+
+    <ng-template #description>
+        <h4>
+            اطلاعات درخواست
+        </h4>
+        <form class="w-100 mt-3" nz-form [formGroup]="fastRegFormGroup">
+            <nz-descriptions nzBordered="true" [nzSize]="'small'"
+                [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+                <nz-descriptions-item nzTitle="واحد بازرسی">
+                    <nz-select formControlName="requestTypeId" required class="w-100" [nzBorderless]="editDisabled">
+                        <nz-option [nzValue]="1" nzLabel="بازرسی آسانسور"></nz-option>
+                    </nz-select>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['requestTypeId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="نوع آسانسور">
+                    <nz-select required formControlName="elevatorTypeId" class="w-100" [nzBorderless]="editDisabled">
+                        <nz-option *ngFor="let item of elevatorTypes" [nzValue]="item.id" [nzLabel]="item.name">
+                        </nz-option>
+                    </nz-select>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['elevatorTypeId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="نوع درخواست">
+                    <nz-select required formControlName="inspectionTypeId"  [ngClass]="{'disabled': existingId > 0}"
+                        class="w-100" [nzBorderless]="editDisabled" (ngModelChange)="inspectionChanges($event)">
+                        <nz-option *ngFor="let item of inspectionTypes" [nzValue]="item.id" [nzLabel]="item.title">
+                        </nz-option>
+                    </nz-select>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['inspectionTypeId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item [nzTitle]="fastRegFormGroup.value.inspectionTypeId == 2 ? 'گواهی نامه قبلی': ''">
+                    <nz-select *ngIf="fastRegFormGroup.value.inspectionTypeId == 2"
+                        formControlName="latestCertificateTypeId" [ngClass]="{'disabled': existingId > 0}" class="w-100"
+                        [nzBorderless]="editDisabled">
+                        <nz-option *ngFor="let item of certTypes" [nzValue]="item.id" [nzLabel]="item.title">
+                        </nz-option>
+                    </nz-select>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['latestCertificateTypeId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="نام هماهنگ کننده">
+                    <input required nz-input formControlName="responsibleFullName" [nzBorderless]="editDisabled"
+                        maxlength="50" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="تلفن همراه هماهنگ کننده">
+                    <input required nz-input formControlName="responsibleCell" [nzBorderless]="editDisabled"
+                        (keydown)="checkNumber($event)" maxlength="12" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['responsibleCell'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="شناسه ملی آسانسور">
+                    <input required nz-input formControlName="elevatorNationalNo" [nzBorderless]="editDisabled"
+                        maxlength="12" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['elevatorNationalNo'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="کد رهگیری سامانه مدیریت">
+                    <input required nz-input formControlName="isiriNo" [nzBorderless]="editDisabled" maxlength="10" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['isiriNo'].invalid">*</span>
+                </nz-descriptions-item>
+
+                <ng-template #customerTypeLabelTemp>
+                    <td class="ant-descriptions-item-content ant-descriptions-item-label">
+                        <div class="d-flex flex-wrap align-items-center"><span>نام مشتری</span>
+                            <div class="d-flex flex-wrap" style="padding-right: 5px;">
+                                <div class="d-flex">
+                                    <label for="real-customer" class="mx-1">حقیقی</label>
+                                    <input type="radio" name="customer-type" id="real-customer"
+                                        [checked]="!customerType" (click)="changeCustomerType()">
+                                </div>
+                                <div class="d-flex">
+                                    <label for="legal-customer" class="mx-1">حقوقی</label>
+                                    <input type="radio" name="customer-type" id="legal-customer"
+                                        [checked]="customerType" (click)="changeCustomerType()">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </ng-template>
+                <nz-descriptions-item [nzTitle]="customerTypeLabelTemp">
+                    <input required nz-input formControlName="customerId" [nzBorderless]="editDisabled"
+                        [nzAutocomplete]="auto1" (input)="onCustomerInput($event)" />
+                    <i nz-icon nzType="plus" class="card-add-btn" (click)="addCustomer()" *ngIf="!fastRegFormGroup.controls.isLock.value"></i>
+                    <nz-autocomplete #auto1>
+                        <nz-auto-option *ngFor="let item of customers" [nzValue]="item.id"
+                            [nzLabel]="customerType==true ? item.name: (item.firstName + ' ' + item.lastName)">
+                            {{customerType==true ? item.name: (item.firstName + ' ' + item.lastName)}}
+                        </nz-auto-option>
+                    </nz-autocomplete>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['customerId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="" *ngIf="isClient()">
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="شرکت فروشنده" *ngIf="!isClient()">
+                    <input required nz-input formControlName="installatinCompanyId" [nzBorderless]="editDisabled"
+                        [nzAutocomplete]="auto2" (input)="onSellerInput($event)" />
+                    <i nz-icon nzType="plus" class="card-add-btn" (click)="addSeller()" *ngIf="!fastRegFormGroup.controls.isLock.value"></i>
+                    <nz-autocomplete #auto2>
+                        <nz-auto-option *ngFor="let item of sellers" [nzValue]="item.id" [nzLabel]="item.name">
+                            {{item.name}}
+                        </nz-auto-option>
+                    </nz-autocomplete>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['installatinCompanyId'].invalid">*</span>
+                </nz-descriptions-item>
+
+                <nz-descriptions-item nzTitle="تعداد توقف">
+                    <input required nz-input formControlName="stopCount" [nzBorderless]="editDisabled" maxlength="2" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && fastRegFormGroup.controls['stopCount'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="شماره پرونده" *ngIf="!this.isClient()">
+                    <input nz-input formControlName="documentNumber" [nzBorderless]="editDisabled" readonly />
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="تاریخ بازرسی" *ngIf="!this.isClient()">
+                    <dp-date-picker formControlName="inspectionDate" dir="rtl" mode="day" theme="dp-material"
+                        class="ant-input" [config]="datePickerConfig"
+                        [ngClass]="{'ant-input-borderless': editDisabled}">
+                    </dp-date-picker>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="">
+                </nz-descriptions-item>
+            </nz-descriptions>
+        </form>
+    </ng-template>
+
+    <ng-template #buildingInfo>
+        <h4>
+            مشخصات ساختمان
+        </h4>
+        <form class="w-100 mt-3" nz-form [formGroup]="buildingInfoFormGroup">
+            <nz-descriptions nzBordered="true" [nzSize]="'small'"
+                [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+                <nz-descriptions-item nzTitle="استان">
+                    <input required nz-input formControlName="provinceId" [nzBorderless]="editDisabled"
+                        [nzAutocomplete]="autoProv" (input)="onProvinceInput($event)" />
+                    <nz-autocomplete #autoProv>
+                        <nz-auto-option *ngFor="let item of provinces" [nzValue]="item.id" [nzLabel]="item.name">
+                            {{item.name}}
+                        </nz-auto-option>
+                    </nz-autocomplete>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && buildingInfoFormGroup.controls['provinceId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="شهر">
+                    <input required nz-input formControlName="cityId" [nzBorderless]="editDisabled"
+                        [nzAutocomplete]="autoCity" (input)="onCityInput($event)" />
+                    <nz-autocomplete #autoCity>
+                        <nz-auto-option *ngFor="let item of cities" [nzValue]="item.id" [nzLabel]="item.name">
+                            {{item.name}}
+                        </nz-auto-option>
+                    </nz-autocomplete>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && buildingInfoFormGroup.controls['cityId'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="جزئیات آدرس">
+                    <input required nz-input formControlName="address" [nzBorderless]="editDisabled" maxlength="250" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && buildingInfoFormGroup.controls['address'].invalid">*</span>
+                </nz-descriptions-item>
+            </nz-descriptions>
+        </form>
+    </ng-template>
+
+    <ng-template #other>
+        <h4>
+            اطلاعات ثبتی ساختمان
+        </h4>
+
+        <form class="w-100 mt-3" nz-form [formGroup]="otherInfoFormGroup">
+            <nz-descriptions nzBordered="true" [nzSize]="'small'"
+                [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+                <nz-descriptions-item nzTitle="شماره پروانه ساختمانی">
+                    <input required nz-input formControlName="buildingCertificateNo" [nzBorderless]="editDisabled"
+                        maxlength="30" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && otherInfoFormGroup.controls['buildingCertificateNo'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="شماره پلاک ثبتی">
+                    <input required nz-input formControlName="buildingPleque" [nzBorderless]="editDisabled"
+                        maxlength="50" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && otherInfoFormGroup.controls['buildingPleque'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="منطقه شهرداری">
+                    <input required nz-input formControlName="buildingAreaNo" [nzBorderless]="editDisabled"
+                        maxlength="30" />
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && otherInfoFormGroup.controls['buildingAreaNo'].invalid">*</span>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="تاریخ صدور پروانه">
+                    <dp-date-picker required formControlName="buildingIssueDate" dir="rtl" mode="day"
+                        theme="dp-material" class="ant-input" [config]="datePickerConfig"
+                        [ngClass]="{'ant-input-borderless': editDisabled}">
+                    </dp-date-picker>
+                    <span class="d-block position-absolute pt-1 text-danger top-0"
+                        *ngIf="invalidForm && otherInfoFormGroup.controls['buildingIssueDate'].invalid">*</span>
+                </nz-descriptions-item>
+            </nz-descriptions>
+            <nz-descriptions nzBordered="true" [nzSize]="'small'" *ngIf="!isClient()"
+                [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+                <nz-descriptions-item nzTitle="اسناد اسکن شده(zip, rar)">
+                    <div [attr.style]="'width:'+ scanPercent+'%'" [ngClass]="{complete: scanPercent>=100}"
+                        class="upload-progress position-absolute"></div>
+                    <input type="file" nz-input id="scanDocument" [nzBorderless]="editDisabled"
+                        (change)="scanDocumentChange($event)" *ngIf="!fastRegFormGroup.controls.isLock.value">
+
+                    <i nz-icon nzType="eye" *ngIf="otherInfoFormGroup.controls.scanDocumentId.value > 0"
+                        (click)="download('scanDocumentId')" class="file-view" nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" class="file-delete"
+                        *ngIf="otherInfoFormGroup.controls.scanDocumentId.value > 0 && !fastRegFormGroup.controls.isLock.value"
+                        (click)="deleteFile('scanDocumentId')" nzTheme="outline"></i>
+                </nz-descriptions-item>
+                <nz-descriptions-item *ngIf="!this.isClient()" nzTitle="عکس های پروژه(zip, rar)">
+                    <div [attr.style]="'width:'+ projectPercent+'%'" [ngClass]="{complete: projectPercent>=100}"
+                        class="upload-progress position-absolute"></div>
+                    <input type="file" nz-input id="projectDocument" [nzBorderless]="editDisabled" *ngIf="!fastRegFormGroup.controls.isLock.value"
+                        (change)="projectDocumentChange($event)">
+
+                    <i nz-icon nzType="eye" class="file-view"
+                        *ngIf="otherInfoFormGroup.controls.projectDocumentId.value > 0"
+                        (click)="download('projectDocumentId')" nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" class="file-delete"
+                        *ngIf="otherInfoFormGroup.controls.projectDocumentId.value > 0 && !fastRegFormGroup.controls.isLock.value"
+                        (click)="deleteFile('projectDocumentId')" nzTheme="outline"></i>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="گواهینامه صادره(zip, rar)" *ngIf="!isClient()">
+                    <div [attr.style]="'width:'+ certPercent+'%'" [ngClass]="{complete: certPercent>=100}"
+                        class="upload-progress position-absolute"></div>
+                    <input type="file" nz-input id="certificate" [nzBorderless]="editDisabled" *ngIf="!fastRegFormGroup.controls.isLock.value"
+                        (change)="certificateChange($event)">
+
+                    <i nz-icon nzType="eye" class="file-view"
+                        *ngIf="otherInfoFormGroup.controls.certificateId.value > 0" (click)="download('certificateId')"
+                        nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" class="file-delete"
+                        *ngIf="otherInfoFormGroup.controls.certificateId.value > 0 && !fastRegFormGroup.controls.isLock.value"
+                        (click)="deleteFile('certificateId')" nzTheme="outline"></i>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="اسکن پروانه ساختمان(jpg, jpeg, pdf)">
+                    <div [attr.style]="'width:'+ buildingCertificateImagePercent+'%'"
+                        [ngClass]="{complete: buildingCertificateImagePercent>=100}"
+                        class="upload-progress position-absolute"></div>
+                    <input type="file" style="min-width: 100% !important;" nz-input id="buildingCertificateInputFile"
+                        [nzBorderless]="editDisabled" *ngIf="!fastRegFormGroup.controls.isLock.value"
+                        (change)="uploadCertificates($event,'buildingCertificateImageId')">
+                    <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                        *ngIf="otherInfoFormGroup.controls['buildingCertificateImageId'].invalid">*</span>
+
+                    <i nz-icon nzType="eye" *ngIf="otherInfoFormGroup.controls.buildingCertificateImageId.value > 0"
+                        (click)="download('buildingCertificateImageId')" class="file-view" nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" class="file-delete"
+                        *ngIf="otherInfoFormGroup.controls.buildingCertificateImageId.value > 0 && !fastRegFormGroup.controls.isLock.value"
+                        (click)="deleteFile('buildingCertificateImageId')" nzTheme="outline"></i>
+                </nz-descriptions-item>
+
+                <nz-descriptions-item nzTitle="درخواست سامانه مدیریت بازرسی(jpg, jpeg, pdf)">
+                    <div [attr.style]="'width:'+ isiriRequestImagePercent+'%'"
+                        [ngClass]="{complete: isiriRequestImagePercent>=100}" class="upload-progress position-absolute">
+                    </div>
+                    <input type="file" style="min-width: 100% !important;" nz-input id="isiriRequestInputFile" *ngIf="!fastRegFormGroup.controls.isLock.value"
+                        [nzBorderless]="editDisabled" (change)="uploadCertificates($event,'isiriRequestImageId')">
+                    <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                        *ngIf="otherInfoFormGroup.controls['isiriRequestImageId'].invalid">*</span>
+
+                    <i nz-icon nzType="eye" *ngIf="otherInfoFormGroup.controls.isiriRequestImageId.value > 0"
+                        (click)="download('isiriRequestImageId')" class="file-view" nzTheme="outline"></i>
+                    <i nz-icon nzType="delete" class="file-delete"
+                        *ngIf="otherInfoFormGroup.controls.isiriRequestImageId.value > 0 && !fastRegFormGroup.controls.isLock.value"
+                        (click)="deleteFile('isiriRequestImageId')" nzTheme="outline"></i>
+                </nz-descriptions-item>
+            </nz-descriptions>
+        </form>
+        <div class="text-start mt-3" dir="rtl">
+            <button *ngIf="!this.isClient() && !fastRegFormGroup.controls.isLock.value" nz-button nzType="default" [nzLoading]="editLoading" class="me-2"
+                (click)="confirm()">
+                تایید نهایی
+            </button>
+            <button *ngIf="!this.isClient() && !fastRegFormGroup.controls.isLock.value" nz-button nzType="default" [nzLoading]="editLoading" class="me-2"
+                (click)="reject()">
+                لغو
+            </button>
+            <a nz-button nzType="default" class="me-2" *ngIf="!this.isClient() && !fastRegFormGroup.controls.isLock.value"
+                [routerLink]="['/complete-registration/tabs']" [queryParams]="{id: existingId}">
+                تکمیل پرونده
+            </a>
+            <button nz-button *ngIf="!fastRegFormGroup.controls.isLock.value" nzType="primary" [nzLoading]="editLoading" class="me-2" (click)="saveEdit()">
+                ذخیره
+            </button>
+            <button nz-button *ngIf="!fastRegFormGroup.controls.isLock.value" nzType="default" [nzLoading]="editLoading" class="me-2" (click)="clearForm()">
+                خالی کردن فرم
+            </button>
+            <button nz-button nzType="default" class="me-2" (click)="goBack()">
+                بازگشت
+            </button>
+        </div>
+        <div class=" mt-5 ant-descriptions-view" dir="rtl" *ngIf="!this.isClient()">
+                <h3>لیست پیغام ها</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام</th>
+                        <th>متن</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of comments">
+                        <td>{{item.id}}</td>
+                        <td>{{item.userName}}</td>
+                        <td>{{item.body}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-template>
+</div>

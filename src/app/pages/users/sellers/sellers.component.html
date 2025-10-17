@@ -1,0 +1,83 @@
+<div class="w-100 d-flex flex-wrap fast-reg-page" dir="rtl">
+    <div class="col-lg-9 col-12">
+        <form nz-form [formGroup]="myForm" class="ant-advanced-search-form d-flex p-2 flex-wrap">
+            <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+                <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'name'">نام شرکت</nz-form-label>
+                <nz-form-control>
+                    <input nz-input placeholder="نام شرکت" formControlName="name" [attr.id]="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+                <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'economicCode'">کد اقتصادی
+                </nz-form-label>
+                <nz-form-control>
+                    <input nz-input placeholder="کد اقتصادی" formControlName="economicCode" [attr.id]="economicCode" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+                <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'registrationNo'">شماره ثبت
+                </nz-form-label>
+                <nz-form-control>
+                    <input nz-input placeholder="شماره ثبت" formControlName="registrationNo" [attr.id]="registrationNo" />
+                </nz-form-control>
+            </nz-form-item>ّ
+            <nz-form-item class="m-0 col-lg-6 col-12 d-flex flex-wrap">
+                <nz-form-label class="col-md-4 col-12 text-end text-md-start" [nzFor]="'nationalNo'">شناسه ملی
+                </nz-form-label>
+                <nz-form-control>
+                    <input nz-input placeholder="شناسه ملی" formControlName="nationalNo" [attr.id]="nationalNo" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+        <hr>
+        <div class="d-flex justify-content-end my-2 px-2">
+            <button type="button" nz-button nzType="primary" (click)="search()"><i nz-icon
+                    nzType="search"></i>جستجو</button>
+        </div>
+    </div>
+
+    <nz-table #nzTable [nzData]="sellers" [nzTotal]="total" [nzFrontPagination]="false" [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex" (nzQueryParams)="gridChanged($event)" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th>نام شرکت</th>
+                <th>کد اقتصادی</th>
+                <th>شماره ثبت</th>
+                <th>شناسه ملی</th>
+                <th>تصویر پروانه طرح</th>
+                <th>تصویر استعلام اداره ثبت</th>
+                <th>ویرایش/حذف</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nzTable.data">
+                <td>
+                    {{data.name}}
+                </td>
+                <td>
+                    {{data.economicCode}}
+                </td>
+                <td>
+                    {{data.registrationNo}}
+                </td>
+                <td>
+                    {{data.nationalNo}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link" (click)="download(data, 'designingCertificateId')">دانلود/نمایش</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link" (click)="download(data, 'registrationOfficeCertificate')">دانلود/نمایش</button>
+                </td>
+                <td>
+                    <button type="button" title="ویرایش" class="mx-1" nz-button nzType="default" nzShape="circle"
+                        (click)="edit(data)"><i nz-icon nzType="edit"></i></button>
+                    <button type="button" title="حذف" class="mx-1" nz-button nzType="primary" nzShape="circle" nz-popconfirm
+                         nzPopconfirmTitle="آیا از حذف رکورد جاری مطمن می باشید؟" (nzOnConfirm)="deactive(data)">
+                         <i nz-icon nzType="delete"></i>
+                        </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

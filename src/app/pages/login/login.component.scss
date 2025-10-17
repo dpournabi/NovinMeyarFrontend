@@ -1,0 +1,140 @@
+
+.parent-box-login {
+    width: 55%;
+    background-image: url(./../../../assets/images/6.jpg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    left: 0;
+   
+    img {
+        width: 100%;
+      
+    }
+
+
+
+    .instagram {
+        background: #f09433;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    }
+}
+.fit-height{
+    z-index: 10000;
+}
+
+.forms-login {
+    text-align: right;
+    direction: rtl;
+    background: #f8f8f8;
+    width: 45% !important;
+    padding: 0 3rem !important;
+
+    .login-form-forgot {
+        float: right;
+    }
+
+    .login-form-button {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.5em;
+        text-align: right;
+        border-radius: 5px;
+    }
+
+    .ant-btn {
+        height: 35px;
+    }
+
+    nz-statistic-number {
+        .ant-statistic-content-value {
+            font-size: 14px;
+            width: 30px;
+            vertical-align: middle;
+        }
+    }
+
+
+
+    nz-select {
+
+        nz-select-top-control {
+            border: none !important;
+        }
+    }
+
+}
+
+@media (max-width: 992px) {
+    // max-width: 100% !important;
+
+    .forms-login {
+        text-align: right;
+        direction: rtl;
+        background: rgba(255, 255, 255, 0.6);
+        width: 100% !important ;
+        padding: 0 3rem !important;
+    }
+    .parent-box-login {
+        width: 100% ;
+        background-image: url(./../../../assets/images/6.jpg);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: absolute;
+        left: 0;
+       
+
+    }
+}
+
+
+.login-form-button.app_link:hover {
+    background: none !important;
+    text-decoration: underline !important;
+}
+.app_regist.text-bold{
+    font-weight: bold;
+
+}
+.user_icon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    hr{
+        width: 30%;
+       height: 1px;
+    }
+    i{
+        font-size: 30px;
+ 
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    color: #ccc !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    }
+
+}
+
+nz-input-group{
+    .eye_icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+

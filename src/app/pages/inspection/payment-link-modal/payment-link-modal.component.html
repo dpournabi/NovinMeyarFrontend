@@ -1,0 +1,27 @@
+<div class="ant-advanced-form modal-content" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="paymentLinkForm">
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item class="d-flex flex-column mt-4">
+                    <nz-form-label>شماره همراه پرداخت کننده</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="ثبت شماره صحیح جهت دریافت لینک پرداخت الزامی می باشد">
+                        <input autocomplete="off" type="text" pattern="^09([0-9][0-9])-?[0-9]{3}-?[0-9]{4}" maxlength="11" class="user-name-direction" nz-input formControlName="responsibleCell" autofocus required placeholder="09128888888" />
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="paymentLinkForm.controls['responsibleCell'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                
+            </div>
+        </div>
+        <div class="col-12 mt-4" style="text-align: left; padding:0.5rem 0 0 1rem;">
+            <!-- <button  nz-button nzType="primary" [nzLoading]="loaded" *ngIf="router.url === '/users/profile'" (click)='edit_UserProfile()'>
+              ذخیره
+            </button> -->
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,8 @@
+<nz-tabset>
+    <nz-tab *ngIf="selectedTab == 'real'" nzTitle="مشتری حقیقی">
+        <add-real-customer (formProvider)="provideRealForm($event)"></add-real-customer>
+    </nz-tab>
+    <nz-tab *ngIf="selectedTab == 'legal'" nzTitle="مشتری حقوقی">
+        <add-legal-customer (formProvider)="provideLegalForm($event)" ></add-legal-customer>        
+    </nz-tab>
+</nz-tabset>

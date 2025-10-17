@@ -1,0 +1,81 @@
+<section class="d-flex flex-column p-3" dir="rtl">
+    <div class="my-1">
+        <label class="mx-2" for="sub-systems">نام زیرسیستم</label>
+        <nz-select (ngModelChange)="onSubsystemChange($event)" ngModel="Technical" nz-input id="sub-systems"
+            style="min-width: 12em;">
+            <nz-option [nzValue]="'Technical'" [nzLabel]="'Technical'"></nz-option>
+            <nz-option [nzValue]="'Finannce'" [nzLabel]="'Finannce'"></nz-option>
+            <nz-option [nzValue]="'Cartable'" [nzLabel]="'Cartable'"></nz-option>
+            <nz-option [nzValue]="'File Management'" [nzLabel]="'File Management'"></nz-option>
+            <nz-option [nzValue]="'Customer'" [nzLabel]="'Customer'"></nz-option>
+        </nz-select>
+    </div>
+    <div class="my-1 d-flex">
+        <div class="align-items-center d-flex">
+            <label class="mx-2" for="roles">عنوان نقش</label>
+            <input type="radio" name="access-type" (click)="changeAccessType('ROLE')" checked id="roles">
+        </div>
+        <div class="align-items-center d-flex">
+            <label class="mx-2" for="users">کاربران</label>
+            <input type="radio" name="access-type" (click)="changeAccessType('USER')" id="users">
+        </div>
+    </div>
+    <div class="col-12 col-md-4 col-sm-6 my-1">
+        <input nz-input [nzAutocomplete]="auto1" (input)="onAccessTypeInput($event)" />
+        <nz-autocomplete #auto1>
+            <nz-auto-option (selectionChange)="onAccessLevelChange($event)" *ngFor="let item of accessTypeOptions"
+                [nzValue]="accessType=='ROLE' ? item.roleName: item.userName"
+                [nzLabel]="accessType=='ROLE' ? item.roleName: (item.userName + ' - ' + item.fullName )">
+                {{accessType=='ROLE' ? item.roleName: (item.userName + ' - ' + item.fullName )}}
+            </nz-auto-option>
+        </nz-autocomplete>
+    </div>
+    <div class="col-12 col-md-4 col-sm-6 d-flex my-1">
+        <div class="d-flex flex-column flex-grow-1">
+            <label class="mx-2" for="access-level-list">لیست سطوح دسترسی</label>
+            <input dir="ltr" id="access-level-list" [(ngModel)]="accessLevel" nz-input [nzAutocomplete]="auto2"
+                (input)="onAccessLevelInput($event)" />
+            <nz-autocomplete #auto2 dir="ltr">
+                <nz-auto-option dir="ltr" *ngFor="let item of accessListOptions" [nzValue]="item" [nzLabel]="item">
+                    {{item}}
+                </nz-auto-option>
+            </nz-autocomplete>
+        </div>
+        <div class="align-items-end d-flex me-2">
+            <button nz-button nzType="primary" type="button" (click)="addPermission()">افزودن</button>
+        </div>
+    </div>
+    <div>
+        <nz-table #nzTable [nzData]="workingAccessLevels" [nzFrontPagination]="false">
+            <thead>
+                <tr>
+                    <th>مقدار دسترسی</th>
+                    <th>عنوان دسترسی</th>
+                    <th>نوع دسترسی(کاربر/نقش)</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                    <td>
+                        {{data.claimType}}
+                    </td>
+                    <td>
+                        <i class="i i-check"></i>
+                        {{data.claimValue}}
+                    </td>
+                    <td>
+                        {{data.accessType}}
+                    </td>
+                    <td>
+                        <button type="button" title="حذف" class="mx-1" nz-button nzType="primary" nzShape="circle"
+                            nz-popconfirm nzPopconfirmTitle="آیا از حذف رکورد جاری مطمن می باشید؟"
+                            (nzOnConfirm)="removePermission(data)">
+                            <i nz-icon nzType="delete"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</section>

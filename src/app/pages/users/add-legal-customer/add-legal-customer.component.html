@@ -1,0 +1,90 @@
+<div class="ant-advanced-form modal-content" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="legalCustomerForm">
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>نام شرکت</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="نام شرکت الزامی می باشد">
+                      <input nz-input formControlName="name" class="novin-input-style" autofocus  maxlength="50" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="legalCustomerForm.controls['name'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>شماره ثبت</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="شماره ثبت صحیح نمی باشد">
+                      <input nz-input formControlName="registerNo" class="novin-input-style" maxlength="10" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="legalCustomerForm.controls['registerNo'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>تلفن ثابت</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="فرمت شماره صحیح نمی باشد">
+                      <input nz-input formControlName="tellPhone" class="novin-input-style" pattern="^0\d{2}\d{8}$" maxlength="11" placeholder="02133000000" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="legalCustomerForm.controls['tellPhone'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>نام خانوادگی مدیرعامل</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="ceoLastName" class="novin-input-style"  maxlength="20"/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label style="direction: rtl;">تاریخ تولد مدیرعامل</nz-form-label>
+                    <nz-form-control>
+                        <dp-date-picker formControlName="ceoBirthday" dir="rtl" theme="dp-material"
+                            class="ant-input" [config]="datePickerConfig">
+                        </dp-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+
+
+
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item  class="d-flex flex-column">
+                    <nz-form-label>کداقتصادی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="کداقتصادی الزامی می باشد">
+                      <input nz-input formControlName="economicCode" class="novin-input-style" maxlength="10" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="legalCustomerForm.controls['economicCode'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>شناسه ملی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="شناسه ملی الزامی می باشد">
+                      <input nz-input formControlName="nationalCode" class="novin-input-style"  maxlength="10" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="legalCustomerForm.controls['nationalCode'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>نام مدیرعامل</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="ceoFirstName" class="novin-input-style"  maxlength="20"/>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>همراه مدیرعامل</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="ceoCell" class="novin-input-style"  maxlength="11" placeholder="09128888888" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>آدرس</nz-form-label>
+                    <nz-form-control>
+                      <textarea nz-input formControlName="address" class="novin-input-style"  maxlength="200">
+
+                      </textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>

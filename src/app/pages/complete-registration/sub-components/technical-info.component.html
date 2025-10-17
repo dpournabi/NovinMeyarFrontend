@@ -1,0 +1,175 @@
+<!-- 
+<p>
+    technical info ... 
+</p> -->
+
+<nz-card class="col-12">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'small' }">
+        <nz-card-meta [nzDescription]="description"></nz-card-meta>
+    </nz-skeleton>
+</nz-card>
+
+<ng-template #description>
+    <form class="w-100" nz-form [formGroup]="technicalInfoForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="تعداد توقف(ایستگاه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="stopCount"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ظرفیت(نفر/کیلوگرم)">
+                <div class="col-12 d-flex flex-row">
+                    <input nz-input placeholder="نفر" just-number focus-select formControlName="carCapacityCount"
+                        class="bg-transparent border-0 text-center" dir="ltr" />
+                    <input nz-input placeholder="کیلوگرم" just-number focus-select formControlName="carCapacityWeight"
+                        class="bg-transparent border-0 border-end text-center" dir="ltr" />
+                </div>
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سرعت کابین(متر بر ثانیه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="cabinSpeed" />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طول حرکت(متر)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="travel" />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تعداد آسانسور در ساختمان(دستگاه)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="elevatorCount" />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="وضعیت چاهک">
+                <div class="d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="pit-situation-1" value="type1" formControlName="pitSituation" />
+                        <label class="" for="pit-situation-1">استوار</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="pit-situation-2" value="type0" formControlName="pitSituation" />
+                        <label class="" for="pit-situation-2">معلّق</label>
+                    </div>
+                </div>
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="موتورخانه">
+                <div class="d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center ms-2">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="machine-room-1" formControlName="hasMachineRoom" value="Y" />
+                        <label class="" for="machine-room-1">دارد</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="machine-room-2" formControlName="hasMachineRoom" value="N" />
+                        <label class="" for="machine-room-2">ندارد</label>
+                    </div>
+                </div>
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="سمت درب طبقات">
+                <div class="d-flex flex-column flex-sm-row">
+                    <div class="d-flex flex-row align-items-center ms-2 col-6 col-sm-auto">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-side-1" value="front" formControlName="openingSide"/>
+                        <label class="" for="door-side-1">جلو</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2 col-6 col-sm-auto">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-side-2" value="back" formControlName="openingSide"/>
+                        <label class="" for="door-side-2">عقب</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center ms-2 col-6 col-sm-auto">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-side-3" value="right" formControlName="openingSide"/>
+                        <label class="" for="door-side-3">راست</label>
+                    </div>
+                    <div class="d-flex flex-row align-items-center col-6 col-sm-auto">
+                        <input nz-input class="bg-transparent border-0 text-center fit-width ms-1" dir="ltr"
+                            type="radio" id="door-side-4" value="left" formControlName="openingSide"/>
+                        <label class="" for="door-side-4">چپ</label>
+                    </div>
+                </div>
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="تلفن آسانسور">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select just-number dir="ltr" formControlName="elevatorPhoneNumber" />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="شناسه ملی آسانسور">
+                <input nz-input class="bg-transparent border-0 text-center" focus-select just-number dir="ltr" formControlName="elevatorNationalNo" />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+        </nz-descriptions>
+
+        <h6 class="me-2 mt-2">کدهای اموال تجهیزات مورد استفاده در بازرسی</h6>
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="لوکس متر">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="luxMeterSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نیروسنج">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="powerMeterSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="متر نواری">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="typeMeterSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="مولتی متر">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="multiMeterSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="متر لیزری">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="laserMeterSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="کولیس">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="collisSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ضخامت سنج">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="thicknessGaugeSerialNo"
+                    just-number focus-select />
+                <!-- <span class="d-block position-absolute pt-1 text-danger top-0"
+                    *ngIf="invalidForm && fastRegFormGroup.controls['responsibleFullName'].invalid">*</span> -->
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="شماره کنتور سه فاز">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="threePahseSerialNo"
+                    just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="طول طبقه">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="floorLength"
+                    just-number focus-select />
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ضریب تعادل وزنه q (بالانس)">
+                <input nz-input class="bg-transparent border-0 text-center" dir="ltr" formControlName="balanceRatio"
+                    just-number focus-select />
+            </nz-descriptions-item>
+            
+        </nz-descriptions>
+    </form>
+</ng-template>

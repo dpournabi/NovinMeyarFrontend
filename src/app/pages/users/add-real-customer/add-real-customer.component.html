@@ -1,0 +1,98 @@
+<div class="ant-advanced-form modal-content" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="realCustomerForm">
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>نام</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="نام الزامی می باشد">
+                      <input nz-input formControlName="firstName" class="novin-input-style" autofocus  maxlength="50" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="realCustomerForm.controls['firstName'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item  class="d-flex flex-column">
+                        <nz-form-label>کد ملی</nz-form-label>
+                        <nz-form-control nzHasFeedback nzErrorTip="کد ملی الزامی می باشد">
+                          <input nz-input formControlName="nationalCode" class="novin-input-style" maxlength="10" required/>
+                          <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                    *ngIf="realCustomerForm.controls['nationalCode'].invalid">*</span>
+                        </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>تلفن ثابت</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="فرمت شماره صحیح نمی باشد">
+                      <input nz-input formControlName="tellPhone" class="novin-input-style" pattern="^0\d{2}\d{8}$" maxlength="11" placeholder="02133000000" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="realCustomerForm.controls['tellPhone'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>ایمیل</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input type="email" formControlName="email" class="novin-input-style"  maxlength="30"/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item  class="d-flex flex-column">
+                    <nz-form-label>کد پستی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="کد پستی الزامی می باشد">
+                      <input nz-input formControlName="postalCode" class="novin-input-style" maxlength="10" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="realCustomerForm.controls['postalCode'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>نام خانوادگی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="نام خانوادگی الزامی می باشد">
+                      <input nz-input formControlName="lastName" class="novin-input-style"  maxlength="50" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="realCustomerForm.controls['lastName'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>شماره همراه</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="شماره همراه الزامی می باشد">
+                      <input nz-input formControlName="cellPhone" class="novin-input-style"  maxlength="11" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="realCustomerForm.controls['cellPhone'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>تاریخ تولد</nz-form-label>
+                    <nz-form-control>
+                        <dp-date-picker formControlName="birthDate" dir="rtl" theme="dp-material"
+                            class="ant-input p-0" [config]="datePickerConfig">
+                        </dp-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>آدرس</nz-form-label>
+                    <nz-form-control>
+                      <textarea nz-input formControlName="address" class="novin-input-style"  maxlength="200">
+                      </textarea>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column">
+                    <nz-form-label>تصویر کارت ملی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="بارگذاری تصویر کارت ملی الزامی می باشد">
+                        <div [attr.style]="'width:'+ nationalCartPercent+'%'" [ngClass]="{complete: nationalCartPercent>=100}"
+                            class="upload-progress position-absolute"></div>
+                        <input type="file" style="min-width: 100% !important;" nz-input id="nationalCartDocument" [nzBorderless]="editDisabled"
+                            (change)="uploadCertificates($event,'nationalCartId')">
+                            <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                            *ngIf="realCustomerForm.controls['nationalCartId'].invalid">*</span>
+    
+                        <i nz-icon nzType="eye" *ngIf="realCustomerForm.controls.nationalCartId.value > 0"
+                            (click)="download('nationalCartId')" class="file-view" nzTheme="outline"></i>
+                        <i nz-icon nzType="delete" class="file-delete"
+                            *ngIf="realCustomerForm.controls.nationalCartId.value > 0"
+                            (click)="deleteFile('nationalCartId')" nzTheme="outline"></i>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+</div>

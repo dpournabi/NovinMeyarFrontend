@@ -1,0 +1,15 @@
+.error-pages {
+  /* width: 397px; */
+  margin: 75px auto 0 auto;
+  text-align: center;
+}
+
+error-pages > .headline {
+  font-size: 100px;
+  font-weight: 300;
+}
+
+h2, .h2 {
+  font-size: 95px;
+}
+/*# sourceMappingURL=page-not-found.component.css.map */

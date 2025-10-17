@@ -1,0 +1,162 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            nzTheme="dark"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo text-center">
+      <a >
+        <img src="./../../../assets/images/logo.png" alt="logo">
+        <h1 class="mx-2">شرکت بازرسی نوین معیار آزمای آپادانا</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li  nz-menu-item nz-tooltip nzMatchRouter [nzTooltipTitle]="isCollapsed ? 'داشبورد' : ''" routerLink="/dashboard" (click)="isCollapsed = !isCollapsed">
+        <i nz-icon nzType="dashboard"></i>
+        <span>داشبورد</span>
+      </li>
+      <li *ngIf="this.isRoot()"  nz-menu-item nz-tooltip nzMatchRouter [nzTooltipTitle]="isCollapsed ? 'دسترسی ها' : ''" routerLink="/permissions/user-permissions" (click)="isCollapsed = !isCollapsed">
+        <i nz-icon nzType="dashboard"></i>
+        <span>دسترسی ها</span>
+      </li>
+      <li *ngIf="this.isRoot() || this.isAdmin()"  nz-submenu nzTitle="اطلاعات پایه" nzIcon="info-circle">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/base-info" (click)="isCollapsed = !isCollapsed">
+            <i nz-icon nzType="border-outer"></i>
+            <span>ویژگی های قطعات آسانسور</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="درخواست ها" nzIcon="reconciliation">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/fast-reg" (click)="isCollapsed = !isCollapsed">
+            <i nz-icon nzType="border-outer"></i>
+            <span>ثبت پرونده جدید</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/fast-reg-list" (click)="isCollapsed = !isCollapsed" *ngIf="this.isRoot() || this.isAdmin() || this.isTechnicalManager() || this.isClient()">
+            <i nz-icon nzType="border-outer"></i>
+            <span>لیست پرونده ها</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/workflow" (click)="isCollapsed = !isCollapsed" *ngIf="this.isRoot() || this.isAdmin() || this.isBranchManager() || this.isTechnicalManager() || this.isTechnicalExpert()">
+            <i nz-icon nzType="border-outer"></i>
+            <span>گردش کار</span>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="this.isRoot() || this.isAdmin()" nz-submenu nzTitle="مشتریان" nzIcon="usergroup-add">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/users/real-customers" (click)="isCollapsed = !isCollapsed">
+            <i nz-icon nzType="bulb" ></i>
+            <span>مشتریان حقیقی</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/users/legal-customers" (click)="isCollapsed = !isCollapsed">
+            <i nz-icon nzType="bell"  ></i>
+            <span>مشتریان حقوقی</span>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="this.isRoot() || this.isAdmin() || this.isBranchManager() || this.isTechnicalManager()" nz-menu-item nzMatchRouter routerLink="/users/sellers" (click)="isCollapsed = !isCollapsed">
+        <i nz-icon nzType="build"  ></i>
+        <span>شرکت های فروشنده</span>
+      </li>
+
+      <li nz-submenu nzTitle="کاربران" nzIcon="usergroup-add" *ngIf="this.isRoot() || this.isAdmin()">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/user-management" (click)="isCollapsed = !isCollapsed">
+            <i class="fal fa-users"></i>
+            <span>مدیریت کاربران</span>
+          </li>
+          <li *ngIf="this.isRoot() || this.isAdmin()"  nz-menu-item nzMatchRouter (click)="activeUser(true)" (click)="isCollapsed = !isCollapsed">
+            <i class="fal fa-users"></i>
+            <span>کاربران احراز هویت شده</span>
+          </li>
+          <li nz-menu-item nzMatchRouter (click)="activeUser(false)" (click)="isCollapsed = !isCollapsed">
+            <i class="fal fa-users"></i>
+            <span>کاربران در انتظار احراز هویت</span>
+          </li>
+        </ul>
+      </li>
+
+      <li nz-submenu nzTitle="پروفایل کاربری" nzIcon="usergroup-add">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/change-password" (click)="isCollapsed = !isCollapsed">
+            <i class="fal fa-users"></i>
+            <span>تغییر کلمه عبور</span>
+          </li>
+          
+        </ul>
+      </li>
+
+    </ul>
+
+    <ul  *ngIf="this.isClient()" nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzMatchRouter  routerLink="/users/profile">
+        <i nz-icon nzType="profile"></i>
+        <span>تکمیل پروفایل</span>
+      </li>
+    </ul>
+
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header d-flex justify-content-between align-items-center">
+        <span class="header-trigger d-block" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger d-block"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        <!-- <h6 class="header-title text-white">پنل مدیریت سامانه</h6> -->
+        <div>
+          <div class="d-flex h-100 align-items-center">
+            <!-- <div class="d-flex flex-column h-100 ">
+              <p class="h-50 m-0 text-decoration-underline" style="line-height: 2;">
+                {{userInfo.companyName}}
+              </p>
+              <p class="h-50 m-0" style="line-height: 2;">
+                {{userInfo.firstname}} {{userInfo.lastname}}
+              </p>
+            </div> -->
+
+            <span class="app_s_color">
+              <i class="fas fa-calendar-alt"></i>
+              امروز: {{today}}
+            </span>
+
+            <div class="app_header_">
+              <i class="fal fa-user"></i>
+              <div *ngIf="userInfo.companyName==''">{{userInfo.firstname}} {{userInfo.lastname}} </div>
+              <div *ngIf="userInfo.companyName!=''">{{userInfo.companyName}} </div>
+              <div>{{userInfo.branchName}}</div>
+            </div>
+            <button  type="button" (click)="logout()" class=" h-100 line-height-1 app_s_color px-4">
+              خروج
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nz-header>
+    <!-- <nz-breadcrumb>
+      <nz-breadcrumb-item>داشبورد</nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>{{second_Route}}</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>{{third_Route}}</nz-breadcrumb-item>
+    </nz-breadcrumb> -->
+    <nz-content>
+      <div class="inner-content overflow-y-auto overflow-x-hidden p-0 position-relative">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer class="text-center font-12 text-white p-2 z-1 d-flex justify-content-between align-items-center">     
+ 
+      <span class="font-10 text-white m-auto">
+         ورژن :  {{version}}
+      </span>
+
+  </nz-footer>
+  </nz-layout>
+</nz-layout>

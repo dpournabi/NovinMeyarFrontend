@@ -1,0 +1,115 @@
+<!-- <p>{{testText}}</p> -->
+
+<!-- <nz-tree [nzData]="nodes" nzShowLine (nzClick)="nzEvent($event)"></nz-tree> -->
+<section class="h-100 w-100 d-flex flex-wrap">
+    <section class="d-flex flex-column col-12 col-md-6 bg-secondary-light-opacity-15 p-2">
+        <div class="text-start w-100 d-flex justify-content-end fit-height">
+            <div class="ms-auto max-w-200 position-relative">
+                <input type="text" name="search-text" (input)="searchTree($event)" class="form-control search-box-text">
+                <i nz-icon nzType="search" class="search-box-icon position-absolute"></i>
+            </div>
+            <button nz-button nzShape="circle" class="d-flex align-items-center justify-content-center"
+                (click)="save($event)" [disabled]="treeState != 1" [nzLoading]="isLoading">
+                <i nz-icon nzType="check"></i>
+            </button>
+            <button nz-button nzShape="circle" class="d-flex align-items-center justify-content-center mx-1"
+                (click)="add($event)" [disabled]="treeState == 1" [nzLoading]="isLoading">
+                <i nz-icon nzType="plus"></i>
+            </button>
+            <button nz-button nzShape="circle" class="d-flex align-items-center justify-content-center mx-1"
+                (click)="edit($event)" [disabled]="treeState != 2" [nzLoading]="isLoading">
+                <i nz-icon nzType="edit"></i>
+            </button>
+            <button nz-button nzShape="circle" class="d-flex align-items-center justify-content-center"
+                (click)="remove($event)" [disabled]="treeState != 2" [nzLoading]="isLoading">
+                <i nz-icon nzType="minus"></i>
+            </button>
+        </div>
+        <div class="w-100 d-flex">
+            <nz-tree #myTree [nzData]="nodes" [nzMultiple]="false" nzShowLine (nzClick)="nzEvent($event)"
+                [nzExpandedKeys]="expandedNodeKeys" class="bg-transparent mt-2" [nzTreeTemplate]="treeTemplate"
+                [nzSearchValue]="treeSearchPhrase" [nzSearchFunc]="searchCallback"></nz-tree>
+
+            <ng-template #treeTemplate let-node let-origin="origin">
+                <span class="custom-node" [ngClass]="{'is-matched': node.isMatched}">
+                    <span *ngIf="origin.isNew">
+                        <!-- <i nz-icon [nzType]="node.isExpanded? 'minus-square':'plus-square'"></i> -->
+                        <form [formGroup]="newNodeForm">
+                            <input [disabled]="isLoading" type="text" name="newNode" formControlName="newNode"
+                                #newNodeInput (keydown)="newNodeKeypress($event)">
+                        </form>
+                    </span>
+                    <span *ngIf="!origin.isNew">
+                        <span>{{node.title}}({{origin.code}})</span>
+                    </span>
+                </span>
+            </ng-template>
+        </div>
+    </section>
+    <section class="d-flex flex-wrap col-12 col-md-6">
+        <div class="col-12 bg-secondary-light-opacity-30 p-2">
+            <form nz-form [formGroup]="detailPropertyForm" class="d-flex flex-column">
+                <div class="col-12 col-sm-6 col-xl-4 col-xxl-3 d-flex flex-column">
+                    <label for="propertyId">ویژگی</label>
+                    <div class="d-flex flex-row">
+                        <input type="text" id="propertyId" formControlName="propertyId" class="form-control p-1"
+                            [nzAutocomplete]="propertyId" (input)="onPropInput($event)" (click)="onPropInput($event)" />
+                        <nz-autocomplete #propertyId>
+                            <nz-auto-option *ngFor="let prop of properties" [nzValue]="prop.id" [nzLabel]="prop.name">
+                                {{prop.name}}</nz-auto-option>
+                        </nz-autocomplete>
+
+                        <button nz-button [disabled]="selectedNode == null" nzShape="circle"
+                            class="d-flex align-items-center justify-content-center mx-1" [nzLoading]="isLoading"
+                            (click)="openProperties()">
+                            <i nz-icon nzType="plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-4 col-xxl-3 d-flex flex-column">
+                    <label for="value">مقدار</label>
+                    <div class="d-flex flex-row" [ngSwitch]="selectedPropertyType">
+                        <input type="text" id="value" formControlName="value" class="form-control p-1"
+                            *ngSwitchCase="'string'" />
+                        <input type="number" id="value" formControlName="value" class="form-control p-1"
+                            *ngSwitchCase="'int'" />
+                        <input type="number" id="value" formControlName="value" class="form-control p-1"
+                            *ngSwitchCase="'decimal'" />
+                        <nz-switch formControlName="value" *ngSwitchCase="'bool'"></nz-switch>
+                        <dp-date-picker formControlName="value" dir="rtl" mode="day" theme="dp-material"
+                            class="ant-input" [config]="datePickerConfig"                            
+                            *ngSwitchCase="'date'">
+                        </dp-date-picker>
+                        <input type="text" id="value" formControlName="value" class="form-control p-1"
+                            *ngSwitchDefault />
+
+                        <button [disabled]="selectedNode == null" nz-button nzShape="circle"
+                            class="d-flex align-items-center justify-content-center mx-1" [nzLoading]="isLoading"
+                            (click)="addProp()">
+                            <i nz-icon nzType="check"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!--<div class="text-start col-12 col-sm-6 col-xl-4 col-xxl-2 d-flex justify-content-end fit-height mt-1">
+                
+                 <button [disabled]="selectedNode == null" nz-button nzShape="circle" class="d-flex align-items-center justify-content-center mx-1"
+                    [nzLoading]="isLoading" (click)="clearPropForm()">
+                    <i nz-icon nzType="plus"></i>
+                </button> 
+            </div>-->
+        </div>
+        <div class="col-12 bg-secondary-light-opacity-60 p-2 d-flex justify-content-start">
+            <span class="btn btn-warning px-2 d-flex fit-width justify-content-between mx-1 fit-height"
+                *ngFor="let prop of selectedProps">
+                <div class="ps-3">
+                    <span class="text-dark">{{prop.propertyName}}</span>: <span class="text-light">{{prop.value}}</span>
+                </div>
+                <div class="pe-3">
+                    <i nz-icon nzType="edit" class="prop-btn" (click)="propEdit(prop)"></i>
+                    <i nz-icon nzType="close" class="prop-btn mx-1" (click)="removeProp(prop)"></i>
+                </div>
+            </span>
+        </div>
+    </section>
+</section>

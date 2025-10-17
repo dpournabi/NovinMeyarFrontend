@@ -1,0 +1,45 @@
+<div class="w-100 d-flex pt-3 flex-wrap fast-reg-page" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="propertyForm">
+        <nz-descriptions nzBordered="true" [nzSize]="'small'" [nzColumn]="{xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1}">
+            <nz-descriptions-item nzTitle="نوع">
+              <nz-select formControlName="type" class="w-100">
+                <nz-option [nzValue]="'string'" nzLabel="رشته ای"></nz-option>
+                <nz-option [nzValue]="'int'" nzLabel="مقدار صحیح"></nz-option>
+                <nz-option [nzValue]="'decimal'" nzLabel="مقدار اعشاری"></nz-option>
+                <nz-option [nzValue]="'date'" nzLabel="تاریخ"></nz-option>
+                <nz-option [nzValue]="'bool'" nzLabel="صحیح یا غلط"></nz-option>
+            </nz-select>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="نام">
+                <input nz-input formControlName="name" [nzBorderless]="true" />
+            </nz-descriptions-item>
+        </nz-descriptions>
+    </form>
+
+    <nz-table #basicTable [nzTemplateMode]="false" class="w-100">
+        <thead>
+          <tr>
+            <th>شناسه</th>
+            <th>نام</th>
+            <th>نوع</th>
+            <th>عملیات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of propData">
+            <td>{{data.id}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.type}}</td>
+            <td>
+              <button nz-button nzShape="circle" (click)="deactiveProperty(data)">
+                <i nz-icon nzType="delete"></i>
+              </button>
+              <nz-divider nzType="vertical"></nz-divider>
+              <button nz-button nzShape="circle" (click)="editProperty(data)">
+                <i nz-icon nzType="edit"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+</div>

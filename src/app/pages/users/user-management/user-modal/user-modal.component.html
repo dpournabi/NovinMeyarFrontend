@@ -1,0 +1,63 @@
+<div class="ant-advanced-form modal-content" dir="rtl">
+    <form class="w-100" nz-form [formGroup]="userModalForm">
+        <div class="d-flex flex-wrap">
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                <nz-form-item class="d-flex flex-column mt-4">
+                    <nz-form-label>نام کاربری</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="نام کاربری الزامی می باشد">
+                      <input nz-input formControlName="userName" class="novin-input-style" autofocus  maxlength="50" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="userModalForm.controls['userName'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item  class="d-flex flex-column mt-4">
+                        <nz-form-label>نام</nz-form-label>
+                        <nz-form-control nzHasFeedback nzErrorTip="نام الزامی می باشد">
+                          <input nz-input formControlName="firstName" class="novin-input-style" maxlength="50" required/>
+                          <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                    *ngIf="userModalForm.controls['firstName'].invalid">*</span>
+                        </nz-form-control>
+                </nz-form-item>
+                <nz-form-item  class="d-flex flex-column mt-4">
+                    <nz-form-label>نام خانوادگی</nz-form-label>
+                    <nz-form-control nzHasFeedback nzErrorTip="نام خانوادگی الزامی می باشد">
+                      <input nz-input formControlName="lastName" class="novin-input-style" maxlength="50" required/>
+                      <span class="d-block position-absolute pt-3 text-danger top-0 star-required-style"
+                                *ngIf="userModalForm.controls['lastName'].invalid">*</span>
+                </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="d-flex flex-column mt-4">
+                    <nz-form-label>نام نقش</nz-form-label>
+                    <nz-form-control>
+                        <nz-select required formControlName="roleId" class="w-100" [nzBorderless]="false">
+                            <nz-option *ngFor="let item of roles" [nzValue]="item.id" [nzLabel]="item.roleName">
+                            </nz-option>
+                        </nz-select>
+                        <span class="d-block position-absolute pt-1 text-danger top-0"
+                            *ngIf="userModalForm.controls['roleId'].invalid">*</span>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="d-flex flex-column mt-4">
+                    <nz-form-label>تاریخ تولد</nz-form-label>
+                    <nz-form-control>
+                        <dp-date-picker formControlName="birthDate" dir="rtl" theme="dp-material"
+                            class="ant-input" [config]="datePickerConfig">
+                        </dp-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+
+            <div class="col-12 col-md-6 d-flex flex-column px-2">
+                
+            </div>
+        </div>
+        <div class="col-12 mt-4" style="text-align: left; padding:0.5rem 0 0 1rem;">
+            <!-- <button  nz-button nzType="primary" [nzLoading]="loaded" *ngIf="router.url === '/users/profile'" (click)='edit_UserProfile()'>
+              ذخیره
+            </button> -->
+        </div>
+
+    </form>
+</div>
